@@ -1,23 +1,19 @@
+/**
+*Module Name:		led_mux.v
+*Project:			ToW
+*Author:			Jason Van Kerkhoven
+*					Connor Emery
+*Date of Update:	27/11/2016                                              
+*Version:           1.0.0                                                      
+
+*Purpose:           TODO
+* 
+* 
+*Update Log:		v1.0.0
+						- intial commit
+*/
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    15:16:40 11/25/2016 
-// Design Name: 
-// Module Name:    led_mux 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 module led_mux(score, led_ctrl, led_out);
 	//declaring inputs
 	input wire [6:0] score;			//7bit

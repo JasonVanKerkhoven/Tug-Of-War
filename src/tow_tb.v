@@ -1,26 +1,18 @@
-`timescale 1ns / 1ps
+/**
+*Module Name:		tow_tb.v
+*Project:			ToW
+*Author:			Jason Van Kerkhoven
+*					Connor Emery
+*Date of Update:	27/11/2016                                              
+*Version:           1.0.0                                                      
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   15:17:52 11/25/2016
-// Design Name:   tow
-// Module Name:   W:/Desktop/ToW/src/tow_tb.v
-// Project Name:  ToW
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: tow
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
+*Purpose:           TODO
+* 
+* 
+*Update Log:		v1.0.0
+						- intial commit
+*/
+`timescale 1ns / 1ps
 
 module tow_tb;
 

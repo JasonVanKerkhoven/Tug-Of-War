@@ -1,22 +1,19 @@
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    11:48:15 12/04/2014 
-// Design Name: 
-// Module Name:    clk_div 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+/**
+*Module Name:		clk_div.v
+*Project:			ToW
+*Author:			Jason Van Kerkhoven
+*					Connor Emery
+*Date of Update:	27/11/2016                                              
+*Version:           1.0.0                                                      
+
+*Purpose:           TODO
+* 
+* 
+*Update Log:		v1.0.0
+						- intial commit
+*/
+
+
 module clk_div(CLK_I,rst, clk );
 
 // input port

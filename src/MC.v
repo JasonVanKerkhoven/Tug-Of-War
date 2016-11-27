@@ -1,11 +1,18 @@
-//time scale
+/**
+*Module Name:		MC.v
+*Project:			ToW
+*Author:			Jason Van Kerkhoven
+*					Connor Emery
+*Date of Update:	27/11/2016                                              
+*Version:           1.0.0                                                      
+
+*Purpose:           TODO
+* 
+* 
+*Update Log:		v1.0.0
+						- intial commit
+*/
 `timescale 1 ns/ 1ps
-
-
-/***********************************************/
-//Author:		Jason Van Kerkhoven
-//Module:		MC.v
-/***********************************************/
 
 
 module MC(winrnd, slowen, rand, clk, rst, leds_on, led_ctrl, clr);

@@ -1,11 +1,19 @@
-//time scale
+/**
+*Module Name:		DIV256.v
+*Project:			ToW
+*Author:			Jason Van Kerkhoven
+*					Connor Emery
+*Date of Update:	27/11/2016                                              
+*Version:           1.0.0                                                      
+
+*Purpose:           TODO
+* 
+* 
+*Update Log:		v1.0.0
+						- intial commit
+*/
 `timescale 1 ns/ 1ps
 
-
-/***********************************************/
-//Author:		Jason Van Kerkhoven
-//Module:		DIV256.v
-/***********************************************/
 
 module DIV256(clk, rst, slowen);
 
