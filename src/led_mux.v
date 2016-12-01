@@ -26,7 +26,7 @@ module led_mux(score, led_ctrl, led_out);
 	//main mux logic
 	always @(led_ctrl or score) begin
 		case(led_ctrl)
-			2'b11:		led_out = 7'b1111111;		//reset state
+			2'b11:		led_out = 7'b1010101;		//reset state
 			2'b10:		led_out = score;				//shows current score
 			2'b00:		led_out = 7'b0000000;		//dark state
 			default:		led_out <= led_out;			//do nothing

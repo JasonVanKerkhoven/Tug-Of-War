@@ -99,7 +99,7 @@ module scorer(winrnd, right, leds_on, clk, rst, score);
 		`R3:	score = 7'b0000001;
 		`WL:	score = 7'b1110000;
 		`WR:	score = 7'b0000111;
-		default: score = 7'b1010101;
+		default: score = 7'b1001011;
 		endcase
 
 endmodule

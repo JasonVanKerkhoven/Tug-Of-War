@@ -48,7 +48,7 @@ module tow_tb();
 		//put the system in reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -106,6 +106,7 @@ module tow_tb();
 		wait(led_out == 7'b1110000);
 		$display("%t - Current led is at WL. led_out =  ", $time,led_out);
 
+/*
 
 //===================================================================================		
 //Test case 2: Right push from L2, then R until WR
@@ -115,7 +116,7 @@ module tow_tb();
 		//go to reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -215,7 +216,7 @@ module tow_tb();
 		//go to reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -275,7 +276,7 @@ module tow_tb();
 		//go to reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -311,7 +312,7 @@ module tow_tb();
 		//go to reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -362,14 +363,14 @@ module tow_tb();
 		
 	
 //===================================================================================		
-//Test case 6: Left jumping the gun at L2
+//Test case 6: Left jumping the gun at L1
 		$display("%t - ==============================================", $time);
-		$display("%t - Test case 6: left jumping the gun at L2", $time);
+		$display("%t - Test case 6: left jumping the gun at L1", $time);
 		
 		//go to reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -398,14 +399,14 @@ module tow_tb();
 		
 		
 		//===================================================================================		
-//Test case 5: Left jumping the gun on L3
+//Test case 7: Left jumping the gun on L3
 		$display("%t - ==============================================", $time);
-		$display("%t - Test case 5: Left jumping the gun on L3", $time);
+		$display("%t - Test case 7: Left jumping the gun on L3", $time);
 		
 		//go to reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
-		wait(led_out == 7'b1111111); 
+		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
 		@(posedge clk); #1;
 		rst = 0;
@@ -427,7 +428,7 @@ module tow_tb();
 		
 		//go to L2 (left push before right)
 		@(posedge clk); #1;
-		pbr=1; pbl=0;
+		pbr=0; pbl=1;
 		@(posedge clk); #2;
 		pbl=1;
 		@(posedge clk); #1;
@@ -438,12 +439,12 @@ module tow_tb();
 		
 		//go to L3 (left push, no right)
 		@(posedge clk); #1;
-		pbr=0; pbl=1;
+		pbr=0; pbl=1; 
 		@(posedge clk); #1;
 		pbr=0; pbl=0;
 		wait(led_out == 7'b0000000);		//not ready for input yet
 		$display("%t - Current led is dark (score L3). led_out =  ", $time,led_out);
-		$display("%t - Left jumps the gun before prompted", $time);
+		$display("%t - Left jumps the gun before prompted", $time); 
 		
 		//left jumps gun, go to neutral (no right push)
 		@(posedge clk); #1;
@@ -451,9 +452,9 @@ module tow_tb();
 		@(posedge clk); #1;
 		pbr=0; pbl=0;
 		wait(led_out == 7'b0000000);
-		wait(led_out == 7'b0100000);
+		wait(led_out == 7'b0100000); 
 		$display("%t - Current led is at L2. led_out =  ", $time,led_out);
-		
+*/		
 		
 		$finish; 
 	end 
