@@ -44,7 +44,7 @@ module tow_tb();
 		// Wait 100 ns for global reset to finish
 		#100; 
 		$display("%t - Begining Tests...", $time); 
-/*	
+	
 		//put the system in reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
@@ -454,7 +454,7 @@ module tow_tb();
 		wait(led_out == 7'b0000000);
 		wait(led_out == 7'b0100000); 
 		$display("%t - Current led is at L2. led_out =  ", $time,led_out);
-*/		
+	
 
 //===================================================================================		
 //Test case 8: Holding left button

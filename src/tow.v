@@ -14,9 +14,9 @@ Update Log:				v1.0.0
 */
 `timescale 1ns / 1ps
 
-module tow(pbr, pbl, clk, rst, led_out);
+module tow(pbr, pbl, rst, CLK_I, led_out);
 	//module i/o
-	input clk; 
+	input CLK_I;
 	input rst;
 	input pbr;
 	input pbl;
