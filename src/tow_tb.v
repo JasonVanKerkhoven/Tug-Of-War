@@ -207,6 +207,67 @@ module tow_tb();
 		wait(led_out == 7'b0000111);
 		$display("%t - Current led is at WR. led_out =  ", $time,led_out);
 
+//===================================================================================		
+//Test case 3: Left push before Right at R3
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 2: Left push before Right at R3", $time);
+		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1111111); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
+		//go to R1 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000100);
+		$display("%t - Current led is at R1. led_out =  ", $time,led_out);
+		
+		//go to R2 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000010);
+		$display("%t - Current led is at R2. led_out =  ", $time,led_out);
+		
+		//go to R3 (right push, no left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000001);
+		$display("%t - Current led is at R3. led_out =  ", $time,led_out);
+		
+		//go to R1 (left push before right)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #2;
+		pbr=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000100);
+		$display("%t - Current led is at R1. led_out =  ", $time,led_out);
+		
+
+
 		$finish; 
 	end 
 	
