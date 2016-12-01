@@ -54,17 +54,59 @@ module tow_tb();
 		//remove system from reset
 		@(posedge clk); #1;
 		rst = 0;
-		
 		wait(led_out == 7'b0000000);
-		$display("%t - All the lights come off, ", $time,led_out);
-		
+		$display("%t - Entered dark state, ", $time,led_out);
 		wait(led_out == 7'b0001000);
-		$display("%t - Middle light comes on. Ready to play, ", $time,led_out);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
 //===================================================================================		
 //Test case 1: Left winning
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 1: Left pushing first from L2", $time);
 		
+		//go to L1 (only left push)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0010000);
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0010000);
+		$display("%t - Current led is at L1, led_out =  ", $time,led_out);
 		
+		//go to L2
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0100000);
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0100000);
+		$display("%t - Current led is at L2, led_out =  ", $time,led_out);
 		
+		//go to L3 (left push before right)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #2;
+		pbr=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b1000000);
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b1000000);
+		$display("%t - Current led is at L3. led_out =  ", $time,led_out);
+		
+		//go to WL (left push before right)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #2;
+		pbr=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b1110000);
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b1110000);
+		$display("%t - Current led is at WL. led_out =  ", $time,led_out);
 		
 		
 		
