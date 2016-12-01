@@ -210,7 +210,7 @@ module tow_tb();
 //===================================================================================		
 //Test case 3: Left push before Right at R3
 		$display("%t - ==============================================", $time);
-		$display("%t - Test case 2: Left push before Right at R3", $time);
+		$display("%t - Test case 3: Left push before Right at R3", $time);
 		
 		//go to reset, then neutral
 		@(posedge clk); #1;
@@ -266,8 +266,195 @@ module tow_tb();
 		wait(led_out == 7'b0000100);
 		$display("%t - Current led is at R1. led_out =  ", $time,led_out);
 		
-
-
+		
+//===================================================================================		
+//Test case 4: Right jumping the gun on R1
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 4: Right jumping the gun on R2", $time);
+		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1111111); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
+		//go to R1 (right push without left
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);			//not ready for input yet
+		$display("%t - Current led is dark (score R1). led_out =  ", $time,led_out);
+		$display("%t - right jumps the gun before prompted", $time);
+		
+		//right jumps gun, go to neutral (no left push)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0001000);
+		$display("%t - Current led is at N0. led_out =  ", $time,led_out);
+		
+		
+//===================================================================================		
+//Test case 5: Right jumping the gun on R3
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 5: Right jumping the gun on R3", $time);
+		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1111111); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
+		//go to R1 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000100);
+		$display("%t - Current led is at R1. led_out =  ", $time,led_out);
+		
+		//go to R2 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000010);
+		$display("%t - Current led is at R2. led_out =  ", $time,led_out);
+		
+		//go to R3 (right push, no left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);		//not ready for input yet
+		$display("%t - Current led is dark (score R3). led_out =  ", $time,led_out);
+		$display("%t - Right jumps the gun before prompted", $time);
+		
+		//right jumps gun, go to R3 (no left push)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000010);
+		$display("%t - Current led is at R2. led_out =  ", $time,led_out);
+		
+	
+//===================================================================================		
+//Test case 6: Left jumping the gun at L2
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 6: left jumping the gun at L2", $time);
+		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1111111); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
+		//go to L1 (right push without left
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);			//not ready for input yet
+		$display("%t - Current led is dark (score L1). led_out =  ", $time,led_out);
+		$display("%t - Left jumps the gun before prompted", $time);
+		
+		//right jumps gun, go to neutral (no left push)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0001000);
+		$display("%t - Current led is at N0. led_out =  ", $time,led_out);
+		
+		
+		//===================================================================================		
+//Test case 5: Left jumping the gun on L3
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 5: Left jumping the gun on L3", $time);
+		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1111111); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
+		//go to L1 (left push before right)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #2;
+		pbr=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0010000);
+		$display("%t - Current led is at L1. led_out =  ", $time,led_out);
+		
+		//go to L2 (left push before right)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0100000);
+		$display("%t - Current led is at L2. led_out =  ", $time,led_out);
+		
+		//go to L3 (left push, no right)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);		//not ready for input yet
+		$display("%t - Current led is dark (score L3). led_out =  ", $time,led_out);
+		$display("%t - Left jumps the gun before prompted", $time);
+		
+		//left jumps gun, go to neutral (no right push)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0100000);
+		$display("%t - Current led is at L2. led_out =  ", $time,led_out);
+		
+		
 		$finish; 
 	end 
 	
