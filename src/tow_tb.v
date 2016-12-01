@@ -39,24 +39,25 @@ module tow_tb();
 		rst = 0; 
 		clk = 0;
 		pbr = 0;
-		pbl = 0; 
+		pbl = 0;  
 		
 		// Wait 100 ns for global reset to finish
 		#100; 
 		$display("%t - Begining Tests...", $time); 
-		
+/*	
 		//put the system in reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
 		wait(led_out == 7'b1010101); 
 		$display("%t - Reset, ", $time,led_out);
-		@(posedge clk); #1;
+		@(posedge clk); #1; 
 		rst = 0;
 		wait(led_out == 7'b0000000);
 		$display("%t - Entered dark state, ", $time,led_out);
 		wait(led_out == 7'b0001000);
 		$display("%t - Entered neutral state, ready to play", $time,led_out);
-		
+
+
 //===================================================================================		
 //Test case 1: Left winning
 		$display("%t - ==============================================", $time);
@@ -106,7 +107,6 @@ module tow_tb();
 		wait(led_out == 7'b1110000);
 		$display("%t - Current led is at WL. led_out =  ", $time,led_out);
 
-/*
 
 //===================================================================================		
 //Test case 2: Right push from L2, then R until WR
@@ -398,7 +398,7 @@ module tow_tb();
 		$display("%t - Current led is at N0. led_out =  ", $time,led_out);
 		
 		
-		//===================================================================================		
+//===================================================================================		
 //Test case 7: Left jumping the gun on L3
 		$display("%t - ==============================================", $time);
 		$display("%t - Test case 7: Left jumping the gun on L3", $time);
@@ -455,7 +455,50 @@ module tow_tb();
 		wait(led_out == 7'b0100000); 
 		$display("%t - Current led is at L2. led_out =  ", $time,led_out);
 */		
+
+//===================================================================================		
+//Test case 8: Holding left button
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 8: Holding left button", $time);
 		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1010101); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+		
+		$display("%t - Test case 1: Left pushing first from L2", $time);
+		
+		//go to L1 (only left push leaving left on for 7 clks)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1000;
+		pbr=0; pbl=0;
+		//wait(led_out == 7'b0010000);
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0010000);
+		$display("%t - Current led is at L1, led_out =  ", $time,led_out);
+		
+//===================================================================================		
+//Test case 9: Tie
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 9: Tie", $time);
+
+		// testing tie state should stay at L1 
+		@(posedge clk); #1;
+		pbr = 1; pbl = 1;
+		@(posedge clk); #1; 
+		pbr = 0; pbl = 0; #50;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0010000);
+		$display("%t - Current led is at L1, led_out =  ", $time,led_out);
+		 
 		$finish; 
 	end 
 	

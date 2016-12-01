@@ -36,6 +36,6 @@ module tow(pbr, pbl, clk, rst, led_out);
 	synchronizer sync(.sypush(sypush), .push(push), .clk(clk), .rst(rst));
 	opp onepush(.winrnd(winrnd), .clk(clk), .rst(rst), .sypush(sypush));
 	pbl pushleft(.push(push),.tie(tie),.right(right),.pbr(pbr),.pbl(pbl),.clr(clr),.rst(rst));
-	scorer scorer (.winrnd(winrnd), .right(right), .leds_on(leds_on), .clk(clk), .rst(rst), .score(score));
+	scorer scorer (.winrnd(winrnd), .right(right), .leds_on(leds_on), .clk(clk), .rst(rst), .score(score), .tie(tie));
 	led_mux mux (.score(score), .led_out(led_out), .led_ctrl(led_ctrl));
 endmodule

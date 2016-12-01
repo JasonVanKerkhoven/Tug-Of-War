@@ -11,7 +11,7 @@
 //      - a win shows up as either (1 1 1 0 0 0 0) if WL or (0 0 0 0 1 1 1) if WR
 //----------------------------------------------------------------------------------------
 
-module scorer(winrnd, right, leds_on, clk, rst, score);
+module scorer(winrnd, right, leds_on, clk, rst, score, tie);
 	`define WR     	1
 	`define R3     	2
 	`define R2		3
@@ -26,6 +26,7 @@ module scorer(winrnd, right, leds_on, clk, rst, score);
 	input clk;			// input clk 
 	input rst;			// asynchronous reset
 	input right;		// indicates who was pushed first 
+	input tie;
 	input leds_on;		// used to indicate whether the light's were on to determine a jump-the-light
 	input winrnd;		// one-cycle pulse that someone has pushed
 	output [6:0] score;	//  MSB 5 [WL L2 L1 0 R1 R2 WR] LSB 0
@@ -57,6 +58,7 @@ module scorer(winrnd, right, leds_on, clk, rst, score);
 	always @(state or mr or leds_on or winrnd) begin
 		nxtstate = state;
         if(winrnd) begin
+		  if (~tie)
     		if(leds_on)         // Proper pushes (uses favour the loser options)
     			case(state)
     			`N:		if(mr) nxtstate = `R1; else nxtstate = `L1;	
