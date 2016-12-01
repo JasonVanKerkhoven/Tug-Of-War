@@ -36,7 +36,7 @@ module tow_tb();
 	
 	initial begin
 		// Initialize Inputs 
-		rst = 0;
+		rst = 0; 
 		clk = 0;
 		pbr = 0;
 		pbl = 0; 
@@ -45,13 +45,11 @@ module tow_tb();
 		#100; 
 		$display("%t - Begining Tests...", $time); 
 		
-		//put the system in reset
+		//put the system in reset, then neutral
 		@(posedge clk); #1;
 		rst = 1;
 		wait(led_out == 7'b1111111); 
 		$display("%t - Reset, ", $time,led_out);
-
-		//remove system from reset
 		@(posedge clk); #1;
 		rst = 0;
 		wait(led_out == 7'b0000000);
@@ -69,7 +67,7 @@ module tow_tb();
 		pbr=0; pbl=1;
 		@(posedge clk); #1;
 		pbr=0; pbl=0;
-		wait(led_out == 7'b0010000);
+		//wait(led_out == 7'b0010000);
 		wait(led_out == 7'b0000000);
 		wait(led_out == 7'b0010000);
 		$display("%t - Current led is at L1, led_out =  ", $time,led_out);
@@ -79,7 +77,7 @@ module tow_tb();
 		pbr=0; pbl=1;
 		@(posedge clk); #1;
 		pbr=0; pbl=0;
-		wait(led_out == 7'b0100000);
+		//wait(led_out == 7'b0100000);
 		wait(led_out == 7'b0000000);
 		wait(led_out == 7'b0100000);
 		$display("%t - Current led is at L2, led_out =  ", $time,led_out);
@@ -91,7 +89,7 @@ module tow_tb();
 		pbr=1;
 		@(posedge clk); #1;
 		pbr=0; pbl=0;
-		wait(led_out == 7'b1000000);
+		//wait(led_out == 7'b1000000);
 		wait(led_out == 7'b0000000);
 		wait(led_out == 7'b1000000);
 		$display("%t - Current led is at L3. led_out =  ", $time,led_out);
@@ -103,13 +101,112 @@ module tow_tb();
 		pbr=1;
 		@(posedge clk); #1;
 		pbr=0; pbl=0;
-		wait(led_out == 7'b1110000);
+		//wait(led_out == 7'b1110000);
 		wait(led_out == 7'b0000000);
 		wait(led_out == 7'b1110000);
 		$display("%t - Current led is at WL. led_out =  ", $time,led_out);
+
+
+//===================================================================================		
+//Test case 2: Right push from L2, then R until WR
+		$display("%t - ==============================================", $time);
+		$display("%t - Test case 2: Right push from L2, then right until WR", $time);
 		
+		//go to reset, then neutral
+		@(posedge clk); #1;
+		rst = 1;
+		wait(led_out == 7'b1111111); 
+		$display("%t - Reset, ", $time,led_out);
+		@(posedge clk); #1;
+		rst = 0;
+		wait(led_out == 7'b0000000);
+		$display("%t - Entered dark state, ", $time,led_out);
+		wait(led_out == 7'b0001000);
+		$display("%t - Entered neutral state, ready to play", $time,led_out);
+
+		//go to L1 (only left push)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0010000);
+		$display("%t - Current led is at L1, led_out =  ", $time,led_out);
 		
+		//go to L2 (only left push)
+		@(posedge clk); #1;
+		pbr=0; pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0100000);
+		$display("%t - Current led is at L2, led_out =  ", $time,led_out);
+
+		//go to L1 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0010000);
+		$display("%t - Current led is at L1. led_out =  ", $time,led_out);
 		
+		//go to neutral (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0001000);
+		$display("%t - Current led is at N0. led_out =  ", $time,led_out);
+		
+		//go to R1 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000100);
+		$display("%t - Current led is at R1. led_out =  ", $time,led_out);
+		
+		//go to R2 (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbl=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000010);
+		$display("%t - Current led is at R2. led_out =  ", $time,led_out);
+		
+		//go to R3 (right push, no left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000001);
+		$display("%t - Current led is at R3. led_out =  ", $time,led_out);
+		
+		//go to WR (right push before left)
+		@(posedge clk); #1;
+		pbr=1; pbl=0;
+		@(posedge clk); #2;
+		pbr=1;
+		@(posedge clk); #1;
+		pbr=0; pbl=0;
+		//wait(led_out == 7'b1110000);
+		wait(led_out == 7'b0000000);
+		wait(led_out == 7'b0000111);
+		$display("%t - Current led is at WR. led_out =  ", $time,led_out);
+
 		$finish; 
 	end 
 	
