@@ -16,6 +16,7 @@
 
 module pbl (pbl, pbr, rst, clr, push, tie, right);
 	
+	/**
 	//Declaring inputs/outputs
 	input pbl, pbr, rst, clr;
 	output push, tie, right;
@@ -33,5 +34,21 @@ module pbl (pbl, pbr, rst, clr, push, tie, right);
 	assign push = (pbl | pbr) & ~clr & ~rst;
 	assign tie = pbl & pbr & ~rst;
 	assign right = pbr & ~G & ~clr & ~rst;
+	*/
+	
+	input pbr,pbl,clr,rst; //inputs
+	output push,tie,right; // outputs
+	wire G,H,Gx,Hx; //wires used to make the logic
+	
+	//PBL logic  
+	assign Gx = (~H)&pbl; 
+	assign Hx = (~G)&pbr;
+	assign G = (G|Gx)&(~(rst|clr));	
+	assign H = (H|Hx)&(~(rst|clr));	
+	
+	//outputs we want in this module
+	assign push = G|H; //Either player pushed button
+	assign tie = G&H; // both player pushed simultaneously
+	assign right = H&(~G); //1 if right player pushed first
 	
 endmodule

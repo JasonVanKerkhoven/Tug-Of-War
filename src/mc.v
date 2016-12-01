@@ -12,7 +12,7 @@ Purpose:					TODO
 Update Log:				v1.0.0
 								- intial commit
 */
-`timescale 1 ns/ 1ps
+`timescale 1ns/ 1ps
 
 
 module mc(winrnd, slowen, rand, clk, rst, leds_on, led_ctrl, clr);
