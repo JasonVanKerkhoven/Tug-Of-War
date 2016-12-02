@@ -17,21 +17,26 @@
 module pbl (pbl, pbr, rst, clr, push, tie, right);
 	
 	//module I/O
-	input pbr,pbl,clr,rst;
-	output push,tie,right;
+	input pbr;
+	input pbl;
+	input clr;
+	input rst;
+	output push;
+	output tie;
+	output right;
 	
 	//module internals
 	wire G,H,Gx,Hx;
 	
-	//PBL logic  
+	//latch input signals  
 	assign Gx = (~H)&pbl; 
 	assign Hx = (~G)&pbr;
 	assign G = (G|Gx)&(~(rst|clr));	
 	assign H = (H|Hx)&(~(rst|clr));	
 	
-	//outputs we want in this module
-	assign push = G|H; //Either player pushed button
-	assign tie = G&H; // both player pushed simultaneously
-	assign right = H&(~G); //1 if right player pushed first
+	//gatewise logic for PBL output
+	assign push = G|H;
+	assign tie = G&H;
+	assign right = H&(~G);
 	
 endmodule
