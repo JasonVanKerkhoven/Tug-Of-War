@@ -6,6 +6,12 @@ NET "CLK_I" LOC = L15;
 #NET "BTNM_I" IOSTANDARD = LVCMOS33;
 #NET "BTNM_I" LOC = T15;
 
+# onBoard Pmod OUT port
+ NET "pmod_speaker"	LOC = "T3"; # Bank = 2,  Pin name = IO_L62N_D6,     Sch name = JA-D0_N
+ NET "pmod_gain"  	LOC = "R3"; # Bank = 2,  Pin name = IO_L62P_D5,     Sch name = JA-D0_P
+ NET "pmod_enable"	LOC = "N5"; # Bank = 2,  Pin name = IO_L64P_D8,     Sch name = JA-D2_P
+
+
 # onBoard Leds
  NET "led_out<0>" LOC = "U18"; # Bank = 1, Pin name = IO_L52N_M1DQ15, 	   Sch name = LD0
  NET "led_out<1>" LOC = "M14"; # Bank = 1, Pin name = IO_L53P, 		 	   Sch name = LD1

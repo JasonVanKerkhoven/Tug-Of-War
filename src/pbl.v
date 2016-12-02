@@ -16,29 +16,12 @@
 
 module pbl (pbl, pbr, rst, clr, push, tie, right);
 	
-	/**
-	//Declaring inputs/outputs
-	input pbl, pbr, rst, clr;
-	output push, tie, right;
+	//module I/O
+	input pbr,pbl,clr,rst;
+	output push,tie,right;
 	
-	//delcaring wires
-	wire leftpushed, rightpushed, H, G;
-	
-	//declaring modules
-	latch latchL(.trigger(left_pushed), .clr(clr), .out(G));
-	latch latchR(.trigger(right_pushed), .clr(clr), .out(H));
-	
-	//gate logic for PBL
-	assign leftpushed = pbl & !H;
-	assign rightpushed = pbr & !G;
-	assign push = (pbl | pbr) & ~clr & ~rst;
-	assign tie = pbl & pbr & ~rst;
-	assign right = pbr & ~G & ~clr & ~rst;
-	*/
-	
-	input pbr,pbl,clr,rst; //inputs
-	output push,tie,right; // outputs
-	wire G,H,Gx,Hx; //wires used to make the logic
+	//module internals
+	wire G,H,Gx,Hx;
 	
 	//PBL logic  
 	assign Gx = (~H)&pbl; 

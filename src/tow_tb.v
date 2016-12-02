@@ -43,7 +43,7 @@ module tow_tb();
 		
 		// Wait 100 ns for global reset to finish
 		#100; 
-		$display("%t - Begining Tests...", $time); 
+		$display("%t - Begining Tests...", $time);  
 	
 		//put the system in reset, then neutral
 		@(posedge clk); #1;
